@@ -1,16 +1,49 @@
-import * as cdk from 'aws-cdk-lib/core';
-import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { Stack, StackProps } from "aws-cdk-lib";
+import { Construct } from "constructs";
+import { createArtifactBucket } from "./artifacts/artifact-bucket";
+import { createInfrastructureBuildProject } from "./build/infrastructure-build-project";
+import { createInfrastructureDeployRole } from "./identity/infrastructure-deploy-role";
+import { createInfrastructurePipeline } from "./pipeline/infrastructure-pipeline";
 
-export class BootstrapPipelineStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+interface BootstrapPipelineStackProps extends StackProps {
+  envName: string;
+  infrastructureRepoName: string;
+  infrastructureBranchName: string;
+  repositoryOwner: string;
+  account: string;
+  region: string;
+}
+
+export class BootstrapPipelineStack extends Stack {
+  constructor(scope: Construct, id: string, props: BootstrapPipelineStackProps) {
     super(scope, id, props);
+    const {
+      envName,
+      infrastructureRepoName,
+      infrastructureBranchName,
+      repositoryOwner,
+      account,
+      region,
+    } = props;
 
-    // The code that defines your stack goes here
+    const infrastructureDeployRole = createInfrastructureDeployRole(this);
+    const artifactBucket = createArtifactBucket(this, envName);
+    const infrastructureBuildProject = createInfrastructureBuildProject(this, {
+      envName,
+      account,
+      region,
+      infrastructureDeployRole,
+    });
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'BootstrapPipelineQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    createInfrastructurePipeline(this, {
+      envName,
+      infrastructureRepoName,
+      infrastructureBranchName,
+      repositoryOwner,
+      infrastructureDeployRole,
+      artifactBucket,
+      infrastructureBuildProject,
+    });
+
   }
 }

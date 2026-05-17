@@ -102,6 +102,20 @@
     "@aws-cdk/core:validateSnapshotRemovalPolicy": true,
     "@aws-cdk/custom-resources:logApiResponseDataPropertyTrueDefault": false,
     "@aws-cdk/customresources:installLatestAwsSdkDefault": false,
-    "@aws-cdk/s3-notifications:addS3TrustKeyPolicyForSnsSubscriptions": true
+    "@aws-cdk/s3-notifications:addS3TrustKeyPolicyForSnsSubscriptions": true,
+    "infrastructureRepoName": "infrastructure-workshop",
+    "repositoryOwner": "ShockedRose",
+    "dev": {
+      "envName": "dev",
+      "infrastructureBranchName": "dev"
+    },
+    "staging": {
+      "envName": "staging",
+      "infrastructureBranchName": "staging"
+    },
+    "prod": {
+      "envName": "prod",
+      "infrastructureBranchName": "final"
+    }
   }
 }

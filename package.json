@@ -5,7 +5,11 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "cdk:bootstrap": "cdk bootstrap --context env=prod",
+    "cdk:deploy-prod": "cdk deploy --context env=prod --require-approval never",
+    "store-secret": "aws secretsmanager create-secret --name github-token --secret-string",
+    "delete-secret": "aws secretsmanager delete-secret --secret-id github-token --force-delete-without-recovery"
   },
   "devDependencies": {
     "@types/jest": "^30",
