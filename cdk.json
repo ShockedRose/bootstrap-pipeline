@@ -104,7 +104,7 @@
     "@aws-cdk/customresources:installLatestAwsSdkDefault": false,
     "@aws-cdk/s3-notifications:addS3TrustKeyPolicyForSnsSubscriptions": true,
     "infrastructureRepoName": "infrastructure-workshop",
-    "repositoryOwner": "ShockedRose",
+    "repositoryOwner": "YOUR_GITHUB_USERNAME",
     "dev": {
       "envName": "dev",
       "infrastructureBranchName": "dev"
