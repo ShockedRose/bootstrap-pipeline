@@ -26,8 +26,13 @@ export class BootstrapPipelineStack extends Stack {
       region,
     } = props;
 
+
     const infrastructureDeployRole = createInfrastructureDeployRole(this);
+
+
     const artifactBucket = createArtifactBucket(this, envName, repositoryOwner);
+
+
     const infrastructureBuildProject = createInfrastructureBuildProject(this, {
       envName,
       account,
