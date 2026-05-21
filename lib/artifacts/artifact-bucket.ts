@@ -8,7 +8,7 @@ export function createArtifactBucket(
   repositoryOwner: string,
 ): Bucket {
   return new Bucket(scope, "ArtifactBucket", {
-    bucketName: `${repositoryOwner.toLowerCase()}-${envName}-codepipeline-artifact-bucket`,
+    bucketName: `${repositoryOwner.toLowerCase().replace(/_/g, '-')}-${envName}-codepipeline-artifact-bucket`,
     removalPolicy: RemovalPolicy.DESTROY,
     autoDeleteObjects: true,
   });
